@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<script type="text/javascript">
+<!--
+window.onload = function(){
+  document.getElementById('btn').onclick = function(){
+    window.alert('button was clicked');
+  };
+};
+// -->
+</script>
+</head>
+
+<body>
+The content of the document......
+<input id ='btn' type="button" value="dialog">
+
+<form onsubmit = "return window.confirm('ok?');">
+  <input type = "submit" value="send">
+</form>
+</body>
+
+</html>

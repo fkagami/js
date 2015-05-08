@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<meta charset="UTF-8">
+<script type="text/javascript">
+<!--
+function chk(){
+  //fmというフォームのoldラベルのついたフォームに入力され送信された値を取りに行く
+  var q = document.fm.old;
+  //valueが、nullでない、もしくは空文字でない場合は、判定段階へ
+  if (q.value != null && q.value != ''){
+    //isNaN は isnot_i? みたいなメソッド。
+    if(isNaN(q.value)){
+      alert("年齢は数値入力せよ");
+      //デフォルトに戻して入力
+      q.value = q.defaultValue;
+      q.focus(); //自動でフォーカス合わせ
+      q.select(); //選択状態に
+      return false; //イベントハンドラの返り値をfalseにして処理を中断させる
+    }
+  }
+}
+// -->
+</script>
+</head>
+
+<body>
+<form name ="fm" method="POST" action="" onsubmit="return chk()">
+  <label>age:<input type="text" name="old" value="20" size="3">done.</label>
+  <input type="submit" value="送信" />
+</form>
+</body>
+
+</html>
+
+<!-- document.フォーム名.要素名でアクセスする

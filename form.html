@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<meta charset="UTF-8">
+<script type="text/javascript">
+<!--
+function process() {
+  var name = document.fm.name.value;
+  window.alert("こにちは" + name +"さん");
+  return false;
+}
+// -->
+</script>
+</head>
+
+<body>
+The content of the document......
+<form name="fm" onsubmit= "return process()">
+名前:
+<input type="text" name="name" size="10" />
+<input type="submit" value="送信" />
+</form>
+</body>
+
+</html>
+
+<!-- document.フォーム名.要素名でアクセスする

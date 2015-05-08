@@ -1,0 +1,161 @@
+#1 jsとは
+
+ブラウザスクリプト
+インタプリタ型ー逐一解析して、都度翻訳し実行する言語。一括翻訳が必要なコンパイル言語に比べたら動作は遅いが、コンパイル不要
+
+コアjs
+jsだけでも言語として標準機能を提供する
+
+ブラウザオブジェクト
+ブラウザを操作するもの
+
+#2 jsの変数やデータ型
+
+- if else
+- switch
+- while
+前置判断
+- do..while
+後置判断
+- for
+初期化式、ループ継続条件、増減式で初期化、ループ回数を特定したい時に
+-for…in
+配列の要素を順番に処理
+
+#3 オブジェクト色々
+
+var str = new String(“hi”)
+みたいなのもできるが、冗長で有害になることもあるので避ける
+基本データ型はnewしない、そういうことを意識せず使えるようになっている
+
+- 匿名オブジェクト
+var obj = new Object();
+obj.name = “alice"
+obj.birth = new Date(2005, 5, 1)
+プロパティ的に使える
+
+#4 function関数
+functionは、基本function命令で定義する
+
+function calTriangle(w, h){
+  return w * h / 2;
+}
+
+戻り値とは、関数が処理の結果、最終的に呼び出し元へ返す値のこと。
+戻り値が必要ない場合は省略可能で、undefinedを返す。
+
+--
+functionコンストラクタは原則使用しない、特にメリットがない
+
+var triangle = new Function(‘w’, ‘h’, ‘return w * h / 2;’);
+document.writeln(’triangle volume is..’ + triangle(5, 2);
+みたいなやり方は冗長なだけ。
+
+--
+var 命令をせず宣言された変数はグローバル変数扱いになるので注意
+
+--
+return は途中改行しない、セミコロンを省略しても動く様になっているため。
+
+--
+関数はデータ型の一種、
+var triangle = function(w, h) {
+  return（ここで改行しない） w * h / 2;
+}
+
+triangle(5,2); => 10
+triangle = 0;
+triangle => 0
+
+--
+function命令はコンパイル時に関数を登録する
+でも、 var triangle = function… みたいな関数リテラルfunctionコンストラクタで定義すると、変数同様、先に定義しておく必要がある。
+
+---
+参照型に注意
+
+var value = [1, 2, 3, 4, 5];
+
+function deleteElement(value) {
+  value.pop();
+  return value;
+}
+
+document.writeln(deleteElement(value)); //1,2,4,8
+document.writeln(value); //1,2,4,8
+
+L71と仮引数L73は別の変数、しかし、値そのものでなく、参照先を渡しているので、覗く参照先は同じになる
+（参照渡しという）
+
+---
+引数の数が適切かどうかを、関数は評価しない
+引数は、augumentsオブジェクトに格納される
+
+function check(value) {
+if (arguments.length != 1) {
+throw new Error("引数おかしいよ" + arguments.length)
+}
+document.writeln(value);
+}
+
+try {
+check("a", "b");}
+catch(e) {
+window.alert(e.message)
+}
+
+augumentsオブジェクトを確認して、こんなかんじで引数エラーは補足できる。
+
+---
+可変長引数
+augumentにいくつの引数が入っているかを見て、関数を実行する
+
+function sum() {
+  var result = 0;
+
+  for (var i = 0; i < arguments.length; i++) {
+    var tmp = arguments[i];
+    if (isNaN(tmp)) {
+    throw new Error("Wrong type of augument" + tmp);
+    }
+    result += tmp
+  }
+  return result;
+}
+
+try {
+  document.writeln(sum(1,3,5,7,9)); // 25
+} catch(e) {
+  window.alert(e.message);
+}
+
+---
+デフォルト引数のセッティング
+
+function triangle(base, height) {
+if (base == undefined) { base = 1; }
+if (height == undefined) { height = 1;}
+return base * height / 2;
+}
+document.writeln(triangle());
+=>0.5
+
+document.writeln(triangle(2));
+=>1
+
+※後ろの引数は省略可能。前から設定されていく。故に先の引数だけを省略するのは不可能
+
+#5 jsのオブジェクト指向とは
+jsにはクラスが無い、プロトタイプが存在する。
+
+var Member =function(){};
+jsは、関数にクラスとしての役割を与える
+
+newでオブジェクトを生成することを前提とした関数オブジェクトをコンストラクタという
+
+--
+jsは、個別のインスタンスに対して、メンバ（プロパティやメソッド）を追加できる。
+だから、同一クラスを元に生成されたインスタンスに見えても、メンバが同一とは限らない。
+
+--
+プロトタイプチェーンで、継承関係を作れる。（メンバが存在しなければ、勝手に上までたどっていくイメージ）

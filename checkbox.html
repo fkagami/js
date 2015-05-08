@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<meta charset="UTF-8">
+<script type="text/javascript">
+<!--
+function show(){
+  var result = [];
+  var f = document.fm.food;
+  for(var i = 0; i < f.length; i++){
+    if(f[i].checked){
+      //配列の最後に要素を追加
+      result.push(f[i].value);
+    }
+  }
+  window.alert(result.toString());
+  return false;
+}
+// -->
+</script>
+</head>
+
+<body>
+<form name="fm" method="POST" action="" onsubmit="return show()">
+  好きな食べ物は？:
+  <label><input type="checkbox" name="food" value="ramen">ramen</label>
+  <label><input type="checkbox" name="food" value="gyoza">gyoza</label>
+  <label><input type="checkbox" name="food" value="yakiniku">yakiniku</label>
+  <input type="submit" value="send">
+</form>
+</body>
+</html>
+
