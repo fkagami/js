@@ -50,7 +50,7 @@ var Member = function(firstName, lastName){
   }
 };
 
-var mem = new Member("ふみやす", "かがみ");
+var mem = new Member("のぼる", "わたや");
 document.writeln(mem.getName());
 
 //////////疑問///////
@@ -62,7 +62,7 @@ var Member = function(firstName, lastName){
   }
 };
 
-var mem = new Member("かがみ", "ふみやす");
+var mem = new Member("のぼる", "わたや");
 document.writeln(mem.getName());
-//これでもいけるんだけど？thisを付ける意義とは => mem.firstNameとか出来る。attrみたいなもの
+//hisを付ける意義とは => mem.firstNameとか出来る。attrみたいなもの
 
